@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using VideoMenu.be;
+using VideoMenu.bll;
 
-namespace VideoMenu.model
+namespace VideoMenu.gui.model
 {
     class VideoModel
     {
+        private VideoManager _videoManager;
+
         public List<Video> Videos { get; }
 
         public VideoModel()
         {
-            Videos = new List<Video>();
+            _videoManager = new VideoManager();
+            Videos = new List<Video>(_videoManager.GetVideos());
         }
 
         /// <summary>
@@ -23,4 +25,5 @@ namespace VideoMenu.model
             Videos.Add(video);
         }
     }
+
 }

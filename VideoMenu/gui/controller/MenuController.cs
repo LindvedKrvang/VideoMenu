@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using VideoMenu.gui.model;
 using VideoMenu.model;
 
 namespace VideoMenu.gui.controller
@@ -8,12 +10,14 @@ namespace VideoMenu.gui.controller
     class MenuController
     {
         private readonly MenuModel _menuModel;
+        private readonly VideoModel _videoModel; 
 
         private bool _programIsRunning;
 
         public MenuController()
         {
             _menuModel = new MenuModel();
+            _videoModel = new VideoModel();
             _programIsRunning = true;
         }
 
@@ -73,11 +77,12 @@ namespace VideoMenu.gui.controller
         /// <param name="selectedOption"></param>
         private void HandleSelectedMenuOption(int selectedOption)
         {
+            Console.WriteLine();
             switch (selectedOption)
             {
                 case 1:
                 {
-                    Console.WriteLine("Option 1 selected!");
+                    DisplayAllVideos();
                     break;
                 }
                 case 2:
@@ -92,8 +97,7 @@ namespace VideoMenu.gui.controller
                 }
                 case 4:
                 {
-                    Console.WriteLine("\nExiting program...");
-                    _programIsRunning = false;
+                    ExitProgram();
                     break;
                 }
                 default:
@@ -101,6 +105,35 @@ namespace VideoMenu.gui.controller
                     Console.WriteLine("No option selected!");
                     break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Exits the program loop.
+        /// </summary>
+        private void ExitProgram()
+        {
+            Console.WriteLine("\nExiting program...");
+            _programIsRunning = false;
+        }
+
+        /// <summary>
+        /// Displays all the videos. If there are no vidoes, tells the user.
+        /// </summary>
+        private void DisplayAllVideos()
+        {
+            var videos = _videoModel.Videos;
+
+            if (!videos.Any())
+            {
+                Console.WriteLine("There are no videos available at the current time.");
+                return;
+            }
+
+            Console.WriteLine("The available videos are:");
+            foreach (var video in videos)
+            {
+                Console.WriteLine($"Id: {video.Id}. Name: {video.Name}. Genre: {video.Genre}");
             }
         }
     }
