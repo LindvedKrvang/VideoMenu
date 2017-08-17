@@ -15,7 +15,9 @@ namespace VideoMenu.dal
             new Video(4, "Skyfall", EGenre.Action)
         };
 
-        public void CreateVidoes(List<Video> videos)
+        private int IdCounter = 5;
+
+        public void CreateVideos(List<Video> videos)
         {
             throw new NotImplementedException();
         }
@@ -33,6 +35,17 @@ namespace VideoMenu.dal
         public void DeleteVideo(Video video)
         {
             
+        }
+
+        /// <summary>
+        /// Creates a new video with the given name.
+        /// </summary>
+        /// <param name="name"></param>
+        public Video CreateVideo(string name)
+        {
+            var video = new Video(IdCounter++, name, EGenre.Undefined);
+            _videos.Add(video);
+            return video;
         }
     }
 }

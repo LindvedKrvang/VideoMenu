@@ -87,15 +87,20 @@ namespace VideoMenu.gui.controller
                 }
                 case 2:
                 {
-                    Console.WriteLine("Option 2 selected!");
+                    CreateVideo();
                     break;
                 }
                 case 3:
                 {
-                    Console.WriteLine("Option 3 selected!");
+                    Console.WriteLine("Delete a video! - Not implemented yet!");
                     break;
                 }
                 case 4:
+                {
+                    Console.WriteLine("Update video! - Not implemented yet!");
+                    break;
+                }
+                case 5:
                 {
                     ExitProgram();
                     break;
@@ -135,6 +140,22 @@ namespace VideoMenu.gui.controller
             {
                 Console.WriteLine($"Id: {video.Id}. Name: {video.Name}. Genre: {video.Genre}");
             }
+        }
+
+        private void CreateVideo()
+        {
+            var name = PromptName();
+            _videoModel.CreateVideo(name);
+        }
+
+        /// <summary>
+        /// Ask the user for a name.
+        /// </summary>
+        /// <returns></returns>
+        private string PromptName()
+        {
+            Console.WriteLine("Enter the name of the video:");
+            return Console.ReadLine();
         }
     }
 }

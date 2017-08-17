@@ -23,5 +23,14 @@ namespace VideoMenu.bll
         {
             return _videoDao.GetVidoes();
         }
+
+        /// <summary>
+        /// Creates a new video in the database with the given name.
+        /// </summary>
+        /// <param name="name"></param>
+        public Video CreateVideo(string name)
+        {
+            return _videoDao.CreateVideo(name);
+        }
     }
 }

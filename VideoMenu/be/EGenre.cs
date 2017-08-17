@@ -10,6 +10,7 @@ namespace VideoMenu.be
         Comedy,
         Action,
         Romantic,
-        Horror
+        Horror,
+        Undefined
     } 
 }

@@ -7,9 +7,10 @@ namespace VideoMenu.dal
 {
     interface IVideoDAO
     {
-        void CreateVidoes(List<Video> videos);
+        void CreateVideos(List<Video> videos);
         List<Video> GetVidoes();
         void UpdateVideos();
         void DeleteVideo(Video video);
+        Video CreateVideo(string name);
     }
 }
