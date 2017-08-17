@@ -1,12 +1,20 @@
 ﻿using System;
+using VideoMenu.gui.controller;
+using VideoMenu.model;
 
 namespace VideoMenu
 {
     class Program
     {
+        private static MenuController _menuController;
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            _menuController = new MenuController();
+            _menuController.PrintWelcomeMessage();
+            _menuController.MenuLoop();
         }
+
+        
     }
 }
