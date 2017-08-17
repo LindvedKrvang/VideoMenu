@@ -32,5 +32,15 @@ namespace VideoMenu.bll
         {
             return _videoDao.CreateVideo(name);
         }
+
+        /// <summary>
+        /// Removes the video with the parsed ID form the database.
+        /// </summary>
+        /// <param name="idToRemove"></param>
+        /// <returns></returns>
+        public Video DeleteVideo(int idToRemove)
+        {
+            return _videoDao.DeleteVideo(idToRemove);
+        }
     }
 }

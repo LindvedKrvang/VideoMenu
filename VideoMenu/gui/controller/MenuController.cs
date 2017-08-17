@@ -10,7 +10,7 @@ namespace VideoMenu.gui.controller
     class MenuController
     {
         private readonly MenuModel _menuModel;
-        private readonly VideoModel _videoModel; 
+        private readonly VideoModel _videoModel;
 
         private bool _programIsRunning;
 
@@ -92,7 +92,7 @@ namespace VideoMenu.gui.controller
                 }
                 case 3:
                 {
-                    Console.WriteLine("Delete a video! - Not implemented yet!");
+                    DeleteVideo();
                     break;
                 }
                 case 4:
@@ -142,10 +142,25 @@ namespace VideoMenu.gui.controller
             }
         }
 
+        /// <summary>
+        /// Creates a new video.
+        /// </summary>
         private void CreateVideo()
         {
             var name = PromptName();
             _videoModel.CreateVideo(name);
+        }
+
+        /// <summary>
+        /// Ask for the ID of the video to be deleted. Then deletes it.
+        /// </summary>
+        private void DeleteVideo()
+        {
+            Console.WriteLine("Please enter the ID of the video to delete.");
+            var idToRemove = PromptId();
+            var video = _videoModel.DeleteVideo(idToRemove);
+            Console.WriteLine($"{video.Name} was deleted!");
+
         }
 
         /// <summary>
@@ -156,6 +171,22 @@ namespace VideoMenu.gui.controller
         {
             Console.WriteLine("Enter the name of the video:");
             return Console.ReadLine();
+        }
+
+        /// <summary>
+        /// Gets a number from the user. Validates it and checks if there is a video with that ID.
+        /// </summary>
+        /// <returns></returns>
+        private int PromptId()
+        {
+            var ids = _videoModel.GetIds();
+            int input;
+            if (!int.TryParse(Console.ReadLine(), out input) || !ids.Exists(i => i == input))
+            {
+                Console.WriteLine("There isn't a video with that ID. Please write another ID:");
+                input = PromptId();
+            }
+            return input;
         }
     }
 }

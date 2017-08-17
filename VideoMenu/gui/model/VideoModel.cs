@@ -34,6 +34,31 @@ namespace VideoMenu.gui.model
             var video = _videoManager.CreateVideo(name);
             Videos.Add(video);
         }
+
+        /// <summary>
+        /// Returns all the active id's.
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetIds()
+        {
+            var ids = new List<int>();
+            foreach (var video in Videos)
+            {
+                ids.Add(video.Id);
+            }
+            return ids;
+        }
+
+        /// <summary>
+        /// Deletes the video with the parsed ID.
+        /// </summary>
+        /// <param name="idToRemove"></param>
+        public Video DeleteVideo(int idToRemove)
+        {
+            var videoToRemove = _videoManager.DeleteVideo(idToRemove);
+            Videos.Remove(videoToRemove);
+            return videoToRemove;
+        }
     }
 
 }

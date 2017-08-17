@@ -32,9 +32,16 @@ namespace VideoMenu.dal
             throw new NotImplementedException();
         }
 
-        public void DeleteVideo(Video video)
+        /// <summary>
+        /// Deletes a the video with the parsed ID. Returns it.
+        /// </summary>
+        /// <param name="idToRemove"></param>
+        /// <returns></returns>
+        public Video DeleteVideo(int idToRemove)
         {
-            
+            var videoToDelete = _videos.Find(v => v.Id == idToRemove);
+            _videos.Remove(videoToDelete);
+            return videoToDelete;
         }
 
         /// <summary>
