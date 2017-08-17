@@ -92,7 +92,8 @@ namespace VideoMenu.gui.controller
                 }
                 case 4:
                 {
-                    Console.WriteLine("Option 4 selected!");
+                    Console.WriteLine("\nExiting program...");
+                    _programIsRunning = false;
                     break;
                 }
                 default:
