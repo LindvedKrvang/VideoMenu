@@ -9,8 +9,8 @@ namespace VideoMenu.dal
     {
         void CreateVideos(List<Video> videos);
         List<Video> GetVidoes();
-        void UpdateVideos();
         Video DeleteVideo(int idToRemove);
         Video CreateVideo(string name);
+        void UpdateAll(List<Video> videos);
     }
 }

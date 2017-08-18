@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VideoMenu.be;
 using VideoMenu.bll;
 
@@ -58,6 +59,24 @@ namespace VideoMenu.gui.model
             var videoToRemove = _videoManager.DeleteVideo(idToRemove);
             Videos.Remove(videoToRemove);
             return videoToRemove;
+        }
+
+        /// <summary>
+        /// Returns the first video with the parsed id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Video GetVideo(int id)
+        {
+            return Videos.First(v => v.Id == id);
+        }
+
+        /// <summary>
+        /// Updates all the videos in the database.
+        /// </summary>
+        public void UpdateAllVideos()
+        {
+            _videoManager.UpdateAll(Videos);
         }
     }
 
