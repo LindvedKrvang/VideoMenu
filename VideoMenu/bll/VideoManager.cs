@@ -42,5 +42,14 @@ namespace VideoMenu.bll
         {
             return _videoDao.DeleteVideo(idToRemove);
         }
+
+        /// <summary>
+        /// Updates all the videos in the database.
+        /// </summary>
+        /// <param name="videos"></param>
+        public void UpdateAll(List<Video> videos)
+        {
+            _videoDao.UpdateAll(videos);
+        }
     }
 }

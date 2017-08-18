@@ -70,6 +70,14 @@ namespace VideoMenu.gui.model
         {
             return Videos.First(v => v.Id == id);
         }
+
+        /// <summary>
+        /// Updates all the videos in the database.
+        /// </summary>
+        public void UpdateAllVideos()
+        {
+            _videoManager.UpdateAll(Videos);
+        }
     }
 
 }

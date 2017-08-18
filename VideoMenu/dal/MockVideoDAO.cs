@@ -7,7 +7,7 @@ namespace VideoMenu.dal
 {
     class MockVideoDao : IVideoDAO
     {
-        private readonly List<Video> _videos = new List<Video>()
+        private List<Video> _videos = new List<Video>()
         {
             new Video(1, "The good. The bad. The Ugly.", EGenre.Western),
             new Video(2, "Scary Movie 4", EGenre.Comedy),
@@ -25,11 +25,6 @@ namespace VideoMenu.dal
         public List<Video> GetVidoes()
         {
             return _videos;
-        }
-
-        public void UpdateVideos()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -53,6 +48,15 @@ namespace VideoMenu.dal
             var video = new Video(IdCounter++, name, EGenre.Undefined);
             _videos.Add(video);
             return video;
+        }
+
+        /// <summary>
+        /// Updates all the video.
+        /// </summary>
+        /// <param name="videos"></param>
+        public void UpdateAll(List<Video> videos)
+        {
+            _videos = videos;
         }
     }
 }

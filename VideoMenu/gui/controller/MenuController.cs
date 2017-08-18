@@ -125,6 +125,7 @@ namespace VideoMenu.gui.controller
             Console.WriteLine("Please enter its new name:");
             var name = Console.ReadLine();
             video.Name = name;
+            _videoModel.UpdateAllVideos();
             Console.WriteLine($"The video is now called: {video.Name}.");
         }
 
