@@ -97,7 +97,7 @@ namespace VideoMenu.gui.controller
                 }
                 case 4:
                 {
-                    Console.WriteLine("Update video! - Not implemented yet!");
+                    UpdateVideo();
                     break;
                 }
                 case 5:
@@ -111,6 +111,21 @@ namespace VideoMenu.gui.controller
                     break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Finds the video to update and updates the name.
+        /// </summary>
+        private void UpdateVideo()
+        {
+            Console.WriteLine("Please enter the ID of the video to update:");
+            var id = PromptId();
+            var video = _videoModel.GetVideo(id);
+            Console.WriteLine($"The video you have selected is: {video.Name}.");
+            Console.WriteLine("Please enter its new name:");
+            var name = Console.ReadLine();
+            video.Name = name;
+            Console.WriteLine($"The video is now called: {video.Name}.");
         }
 
         /// <summary>
