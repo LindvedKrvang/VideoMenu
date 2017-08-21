@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using VideoMenuDAL;
 using VideoMenuEntities;
 
@@ -22,7 +20,6 @@ namespace VideoMenuBLL.Services
         /// <summary>
         /// Creates a new video in the database with the given name.
         /// </summary>
-        /// <param name="name"></param>
         public Video CreateVideo(string nameOfVideo)
         {
             return VideoDao.CreateVideo(nameOfVideo);
@@ -31,7 +28,8 @@ namespace VideoMenuBLL.Services
         /// <summary>
         /// Removes the video with the parsed ID form the database.
         /// </summary>
-        /// <param name="idToRemove"></param>
+        /// <param></param>
+        /// <param name="idOfVideo"></param>
         /// <returns></returns>
         public Video DeleteVideo(int idOfVideo)
         {

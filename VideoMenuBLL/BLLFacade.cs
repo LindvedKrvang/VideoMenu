@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VideoMenuBLL.Services;
-using VideoMenuEntities;
+﻿using VideoMenuBLL.Services;
 
 namespace VideoMenuBLL
 {

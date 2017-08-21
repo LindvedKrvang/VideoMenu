@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace VideoMenuGUI.gui.model
+namespace VideoMenuGUI.model
 {
     public class MenuModel
     {
@@ -17,7 +17,5 @@ namespace VideoMenuGUI.gui.model
                 "Exit"
             };
         }
-
-
     }
 }

@@ -3,7 +3,7 @@ using System.Linq;
 using VideoMenuBLL;
 using VideoMenuEntities;
 
-namespace VideoMenuGUI.gui.model
+namespace VideoMenuGUI.model
 {
     public class VideoModel
     {
