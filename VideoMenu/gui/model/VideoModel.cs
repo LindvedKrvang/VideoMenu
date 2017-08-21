@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VideoMenu.be;
-using VideoMenu.bll;
+using VideoMenuBLL;
+using VideoMenuEntities;
 
-namespace VideoMenu.gui.model
+namespace VideoMenuGUI.gui.model
 {
-    class VideoModel
+    public class VideoModel
     {
         private readonly VideoManager _videoManager;
 

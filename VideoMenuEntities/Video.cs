@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VideoMenu.be
+﻿namespace VideoMenuEntities
 {
-    class Video
+    public class Video
     {
         public int Id { get; }
         public string Name { get; set; }

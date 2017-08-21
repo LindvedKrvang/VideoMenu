@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VideoMenu.gui.model;
 using VideoMenu.model;
+using VideoMenuGUI.gui.model;
 
-namespace VideoMenu.gui.controller
+namespace VideoMenuGUI.gui.controller
 {
-    class MenuController
+    public class MenuController
     {
         private readonly MenuModel _menuModel;
         private readonly VideoModel _videoModel;

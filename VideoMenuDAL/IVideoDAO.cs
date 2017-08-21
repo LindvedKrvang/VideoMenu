@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VideoMenu.be;
+﻿using System.Collections.Generic;
+using VideoMenuEntities;
 
-namespace VideoMenu.dal
+namespace VideoMenuDAL
 {
-    interface IVideoDAO
+    public interface IVideoDao
     {
         void CreateVideos(List<Video> videos);
         List<Video> GetVidoes();

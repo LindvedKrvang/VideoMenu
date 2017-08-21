@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VideoMenu.model
 {
-    class MenuModel
+    public class MenuModel
     {
         public List<string> MenuOptions { get; }
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VideoMenu.be
+﻿namespace VideoMenuEntities
 {
-    enum EGenre
+    public enum EGenre
     {
         Western,
         Comedy,

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using VideoMenu.be;
-using VideoMenu.dal;
+﻿using System.Collections.Generic;
+using VideoMenuDAL;
+using VideoMenuEntities;
 
-namespace VideoMenu.bll
+namespace VideoMenuBLL
 {
-    class VideoManager
+    public class VideoManager
     {
-        private readonly IVideoDAO _videoDao;
+        private readonly IVideoDao _videoDao;
 
         public VideoManager()
         {
