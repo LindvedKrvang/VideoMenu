@@ -7,14 +7,14 @@ namespace VideoMenuGUI.gui.model
 {
     public class VideoModel
     {
-        private readonly VideoManager _videoManager;
+        private readonly BLLFacade _bllFacade;
 
         public List<Video> Videos { get; }
 
         public VideoModel()
         {
-            _videoManager = new VideoManager();
-            Videos = new List<Video>(_videoManager.GetVideos());
+            _bllFacade = new BLLFacade();
+            Videos = new List<Video>(_bllFacade.VideoService.GetVideos());
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace VideoMenuGUI.gui.model
         /// <param name="name"></param>
         public void CreateVideo(string name)
         {
-            var video = _videoManager.CreateVideo(name);
+            var video = _bllFacade.VideoService.CreateVideo(name);
             Videos.Add(video);
         }
 
@@ -56,7 +56,7 @@ namespace VideoMenuGUI.gui.model
         /// <param name="idToRemove"></param>
         public Video DeleteVideo(int idToRemove)
         {
-            var videoToRemove = _videoManager.DeleteVideo(idToRemove);
+            var videoToRemove = _bllFacade.VideoService.DeleteVideo(idToRemove);
             Videos.Remove(videoToRemove);
             return videoToRemove;
         }
@@ -76,7 +76,7 @@ namespace VideoMenuGUI.gui.model
         /// </summary>
         public void UpdateAllVideos()
         {
-            _videoManager.UpdateAll(Videos);
+            _bllFacade.VideoService.UpdateAllVideos(Videos);
         }
     }
 

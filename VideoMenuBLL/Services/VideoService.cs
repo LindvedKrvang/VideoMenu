@@ -1,17 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using VideoMenuDAL;
 using VideoMenuEntities;
 
-namespace VideoMenuBLL
+namespace VideoMenuBLL.Services
 {
-    public class VideoManager
+    public class VideoService : IVideoService
     {
-        private readonly IVideoDao _videoDao;
-
-        public VideoManager()
-        {
-            _videoDao = new MockVideoDao();
-        }
+        private static readonly IVideoDao VideoDao = new MockVideoDao();
 
         /// <summary>
         /// Gets the vidoes from the database and returns them.
@@ -19,16 +16,16 @@ namespace VideoMenuBLL
         /// <returns></returns>
         public List<Video> GetVideos()
         {
-            return _videoDao.GetVidoes();
+            return VideoDao.GetVidoes();
         }
 
         /// <summary>
         /// Creates a new video in the database with the given name.
         /// </summary>
         /// <param name="name"></param>
-        public Video CreateVideo(string name)
+        public Video CreateVideo(string nameOfVideo)
         {
-            return _videoDao.CreateVideo(name);
+            return VideoDao.CreateVideo(nameOfVideo);
         }
 
         /// <summary>
@@ -36,18 +33,18 @@ namespace VideoMenuBLL
         /// </summary>
         /// <param name="idToRemove"></param>
         /// <returns></returns>
-        public Video DeleteVideo(int idToRemove)
+        public Video DeleteVideo(int idOfVideo)
         {
-            return _videoDao.DeleteVideo(idToRemove);
+            return VideoDao.DeleteVideo(idOfVideo);
         }
 
         /// <summary>
         /// Updates all the videos in the database.
         /// </summary>
         /// <param name="videos"></param>
-        public void UpdateAll(List<Video> videos)
+        public void UpdateAllVideos(List<Video> videos)
         {
-            _videoDao.UpdateAll(videos);
+            VideoDao.UpdateAll(videos);
         }
     }
 }

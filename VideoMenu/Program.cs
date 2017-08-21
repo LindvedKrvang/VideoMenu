@@ -12,7 +12,5 @@ namespace VideoMenu
             _menuController.PrintWelcomeMessage();
             _menuController.MenuLoop();
         }
-
-        
     }
 }
