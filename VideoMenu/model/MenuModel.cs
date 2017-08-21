@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace VideoMenu.model
+namespace VideoMenuGUI.model
 {
-    class MenuModel
+    public class MenuModel
     {
         public List<string> MenuOptions { get; }
 
@@ -19,7 +17,5 @@ namespace VideoMenu.model
                 "Exit"
             };
         }
-
-
     }
 }

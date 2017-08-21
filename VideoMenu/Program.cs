@@ -1,10 +1,8 @@
-﻿using System;
-using VideoMenu.gui.controller;
-using VideoMenu.model;
+﻿using VideoMenuGUI.gui.controller;
 
 namespace VideoMenu
 {
-    class Program
+    public class Program
     {
         private static MenuController _menuController;
 
@@ -14,7 +12,5 @@ namespace VideoMenu
             _menuController.PrintWelcomeMessage();
             _menuController.MenuLoop();
         }
-
-        
     }
 }

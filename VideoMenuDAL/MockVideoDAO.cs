@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using VideoMenu.be;
+using VideoMenuEntities;
 
-namespace VideoMenu.dal
+namespace VideoMenuDAL
 {
-    class MockVideoDao : IVideoDAO
+    public class MockVideoDao : IVideoDao
     {
         private List<Video> _videos = new List<Video>()
         {
