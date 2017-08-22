@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VideoMenuDAL;
 using VideoMenuEntities;
 
@@ -48,6 +49,16 @@ namespace VideoMenuBLL.Services
         public void UpdateAllVideos(List<Video> videos)
         {
             _videoRepository.UpdateAll(videos);
+        }
+
+        /// <summary>
+        /// Search all videos from the database if their name contains the searchQuery.
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
+        public List<Video> SearchVideos(string searchQuery)
+        {
+            return _videoRepository.SearchVideos(searchQuery);
         }
     }
 }

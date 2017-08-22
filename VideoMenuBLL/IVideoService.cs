@@ -9,5 +9,6 @@ namespace VideoMenuBLL
         Video CreateVideo(string nameOfVideo);
         Video DeleteVideo(int idOfVideo);
         void UpdateAllVideos(List<Video> videos);
+        List<Video> SearchVideos(string searchQuery);
     }
 }

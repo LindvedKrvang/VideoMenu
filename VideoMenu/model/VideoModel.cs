@@ -78,6 +78,11 @@ namespace VideoMenuGUI.model
         {
             _bllFacade.VideoService.UpdateAllVideos(Videos);
         }
+
+        public List<Video> SearchVideos(string searchQuery)
+        {
+            return _bllFacade.VideoService.SearchVideos(searchQuery);
+        }
     }
 
 }

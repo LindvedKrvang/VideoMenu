@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VideoMenuEntities;
 
 namespace VideoMenuDAL.Repositories
@@ -50,6 +51,16 @@ namespace VideoMenuDAL.Repositories
         public void UpdateAll(List<Video> videos)
         {
             _videos = videos;
+        }
+
+        /// <summary>
+        /// Returns the videos where their names containsthe searchQuery.
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
+        public List<Video> SearchVideos(string searchQuery)
+        {
+            return _videos.Where(v => v.Name.Contains(searchQuery)).ToList();
         }
     }
 }

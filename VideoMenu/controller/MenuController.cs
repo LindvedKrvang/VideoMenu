@@ -101,6 +101,11 @@ namespace VideoMenuGUI.gui.controller
                 }
                 case 5:
                 {
+                    SearchVideos();
+                    break;
+                }
+                case 6:
+                {
                     ExitProgram();
                     break;
                 }
@@ -109,6 +114,26 @@ namespace VideoMenuGUI.gui.controller
                     Console.WriteLine("No option selected!");
                     break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Prompt the user for what they want to search. Then shows the result.
+        /// </summary>
+        private void SearchVideos()
+        {
+            Console.WriteLine("What do you want to search for?");
+            var input = Console.ReadLine();
+            var foundVideos = _videoModel.SearchVideos(input);
+            if (foundVideos == null || foundVideos.Count == 0)
+            {
+                Console.WriteLine("No videos were found..");
+                return;
+            }
+            Console.WriteLine("I found:");
+            foreach (var video in foundVideos)
+            {
+                Console.WriteLine($"ID: {video.Id}, Name: {video.Name}, Genre: {video.Genre}");
             }
         }
 
