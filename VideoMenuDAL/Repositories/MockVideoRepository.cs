@@ -54,13 +54,18 @@ namespace VideoMenuDAL.Repositories
         }
 
         /// <summary>
-        /// Returns the videos where their names containsthe searchQuery.
+        /// Returns the videos where their id, names or genre contains the searchQuery.
         /// </summary>
         /// <param name="searchQuery"></param>
         /// <returns></returns>
         public List<Video> SearchVideos(string searchQuery)
         {
-            return _videos.Where(v => v.Name.Contains(searchQuery)).ToList();
+            int.TryParse(searchQuery, out int id);
+            return _videos.Where(v => 
+                v.Name.ToLower().Contains(searchQuery.ToLower()) 
+                || v.Id == id 
+                || v.Genre.ToString().ToLower().Contains(searchQuery.ToLower()))
+                .ToList();
         }
     }
 }
