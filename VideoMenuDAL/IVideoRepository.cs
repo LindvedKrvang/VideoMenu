@@ -3,7 +3,7 @@ using VideoMenuEntities;
 
 namespace VideoMenuDAL
 {
-    public interface IVideoDao
+    public interface IVideoRepository
     {
         List<Video> GetVidoes();
         Video DeleteVideo(int idToRemove);

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using VideoMenuEntities;
 
-namespace VideoMenuDAL
+namespace VideoMenuDAL.Repositories
 {
-    public class MockVideoDao : IVideoDao
+    internal class MockVideoRepository : IVideoRepository
     {
-        private List<Video> _videos = new List<Video>()
+        private static List<Video> _videos = new List<Video>()
         {
             new Video(1, "The good. The bad. The Ugly.", EGenre.Western),
             new Video(2, "Scary Movie 4", EGenre.Comedy),

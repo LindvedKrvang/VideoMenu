@@ -7,13 +7,13 @@ namespace VideoMenuGUI.model
 {
     public class VideoModel
     {
-        private readonly BLLFacade _bllFacade;
+        private readonly BllFacade _bllFacade;
 
         public List<Video> Videos { get; }
 
         public VideoModel()
         {
-            _bllFacade = new BLLFacade();
+            _bllFacade = new BllFacade();
             Videos = new List<Video>(_bllFacade.VideoService.GetVideos());
         }
 
