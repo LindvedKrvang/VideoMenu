@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Runtime.InteropServices;
 using VideoMenuGUI.model;
 
-namespace VideoMenuGUI.gui.controller
+namespace VideoMenuGUI.controller
 {
     public class MenuController
     {
@@ -131,10 +130,7 @@ namespace VideoMenuGUI.gui.controller
                 return;
             }
             Console.WriteLine("I found:");
-            foreach (var video in foundVideos)
-            {
-                Console.WriteLine($"ID: {video.Id}, Name: {video.Name}, Genre: {video.Genre}");
-            }
+            foundVideos.ForEach(v => Console.WriteLine($"ID: {v.Id}, Name: {v.Name}, Genre: {v.Genre}"));
         }
 
         /// <summary>
@@ -176,10 +172,7 @@ namespace VideoMenuGUI.gui.controller
             }
 
             Console.WriteLine("The available videos are:");
-            foreach (var video in videos)
-            {
-                Console.WriteLine($"Id: {video.Id}. Name: {video.Name}. Genre: {video.Genre}");
-            }
+            videos.ForEach(v => Console.WriteLine($"Id: {v.Id}. Name: {v.Name}. Genre: {v.Genre}"));
         }
 
         /// <summary>
