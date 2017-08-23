@@ -3,12 +3,12 @@ using VideoMenuEntities;
 
 namespace VideoMenuDAL
 {
-    public interface IVideoDao
+    public interface IVideoRepository
     {
-        void CreateVideos(List<Video> videos);
         List<Video> GetVidoes();
         Video DeleteVideo(int idToRemove);
         Video CreateVideo(string name);
         void UpdateAll(List<Video> videos);
+        List<Video> SearchVideos(string searchQuery);
     }
 }

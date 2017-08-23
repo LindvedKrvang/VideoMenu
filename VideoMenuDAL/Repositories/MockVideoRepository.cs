@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using VideoMenuEntities;
 
-namespace VideoMenuDAL
+namespace VideoMenuDAL.Repositories
 {
-    public class MockVideoDao : IVideoDao
+    internal class MockVideoRepository : IVideoRepository
     {
-        private List<Video> _videos = new List<Video>()
+        private static List<Video> _videos = new List<Video>()
         {
             new Video(1, "The good. The bad. The Ugly.", EGenre.Western),
             new Video(2, "Scary Movie 4", EGenre.Comedy),
@@ -14,13 +14,8 @@ namespace VideoMenuDAL
             new Video(4, "Skyfall", EGenre.Action)
         };
 
-        private int IdCounter = 5;
-
-        public void CreateVideos(List<Video> videos)
-        {
-            throw new NotImplementedException();
-        }
-
+        private int _idCounter = 5;
+        
         public List<Video> GetVidoes()
         {
             return _videos;
@@ -44,7 +39,7 @@ namespace VideoMenuDAL
         /// <param name="name"></param>
         public Video CreateVideo(string name)
         {
-            var video = new Video(IdCounter++, name, EGenre.Undefined);
+            var video = new Video(_idCounter++, name, EGenre.Undefined);
             _videos.Add(video);
             return video;
         }
@@ -56,6 +51,21 @@ namespace VideoMenuDAL
         public void UpdateAll(List<Video> videos)
         {
             _videos = videos;
+        }
+
+        /// <summary>
+        /// Returns the videos where their id, names or genre contains the searchQuery.
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
+        public List<Video> SearchVideos(string searchQuery)
+        {
+            int.TryParse(searchQuery, out int id);
+            return _videos.Where(v => 
+                v.Name.ToLower().Contains(searchQuery.ToLower()) 
+                || v.Id == id 
+                || v.Genre.ToString().ToLower().Contains(searchQuery.ToLower()))
+                .ToList();
         }
     }
 }

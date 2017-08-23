@@ -2,7 +2,7 @@
 {
     public class Video
     {
-        public int Id { get; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public EGenre Genre { get; }
 
@@ -11,6 +11,11 @@
             Id = id;
             Name = name;
             Genre = genre;
+        }
+
+        public Video()
+        {
+            
         }
     }
 }

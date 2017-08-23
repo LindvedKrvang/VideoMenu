@@ -1,12 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VideoMenuDAL;
 using VideoMenuEntities;
 
 namespace VideoMenuBLL.Services
 {
-    public class VideoService : IVideoService
+    internal class VideoService : IVideoService
     {
-        private static readonly IVideoDao VideoDao = new MockVideoDao();
+        private static IVideoRepository _videoRepository;
+
+        public VideoService(IVideoRepository repository)
+        {
+            _videoRepository = repository;
+        }
 
         /// <summary>
         /// Gets the vidoes from the database and returns them.
@@ -14,7 +20,7 @@ namespace VideoMenuBLL.Services
         /// <returns></returns>
         public List<Video> GetVideos()
         {
-            return VideoDao.GetVidoes();
+            return _videoRepository.GetVidoes();
         }
 
         /// <summary>
@@ -22,7 +28,7 @@ namespace VideoMenuBLL.Services
         /// </summary>
         public Video CreateVideo(string nameOfVideo)
         {
-            return VideoDao.CreateVideo(nameOfVideo);
+            return _videoRepository.CreateVideo(nameOfVideo);
         }
 
         /// <summary>
@@ -33,7 +39,7 @@ namespace VideoMenuBLL.Services
         /// <returns></returns>
         public Video DeleteVideo(int idOfVideo)
         {
-            return VideoDao.DeleteVideo(idOfVideo);
+            return _videoRepository.DeleteVideo(idOfVideo);
         }
 
         /// <summary>
@@ -42,7 +48,17 @@ namespace VideoMenuBLL.Services
         /// <param name="videos"></param>
         public void UpdateAllVideos(List<Video> videos)
         {
-            VideoDao.UpdateAll(videos);
+            _videoRepository.UpdateAll(videos);
+        }
+
+        /// <summary>
+        /// Search all videos from the database if their name contains the searchQuery.
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
+        public List<Video> SearchVideos(string searchQuery)
+        {
+            return _videoRepository.SearchVideos(searchQuery);
         }
     }
 }

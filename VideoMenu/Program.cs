@@ -1,4 +1,4 @@
-﻿using VideoMenuGUI.gui.controller;
+﻿using VideoMenuGUI.controller;
 
 namespace VideoMenu
 {

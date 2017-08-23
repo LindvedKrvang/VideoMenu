@@ -14,6 +14,7 @@ namespace VideoMenuGUI.model
                 "Create new video",
                 "Delete a video",
                 "Update video",
+                "Search videos",
                 "Exit"
             };
         }

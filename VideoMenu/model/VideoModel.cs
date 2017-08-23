@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VideoMenuBLL;
 using VideoMenuEntities;
@@ -7,13 +8,13 @@ namespace VideoMenuGUI.model
 {
     public class VideoModel
     {
-        private readonly BLLFacade _bllFacade;
+        private readonly BllFacade _bllFacade;
 
         public List<Video> Videos { get; }
 
         public VideoModel()
         {
-            _bllFacade = new BLLFacade();
+            _bllFacade = new BllFacade();
             Videos = new List<Video>(_bllFacade.VideoService.GetVideos());
         }
 
@@ -77,6 +78,11 @@ namespace VideoMenuGUI.model
         public void UpdateAllVideos()
         {
             _bllFacade.VideoService.UpdateAllVideos(Videos);
+        }
+
+        public List<Video> SearchVideos(string searchQuery)
+        {
+            return _bllFacade.VideoService.SearchVideos(searchQuery);
         }
     }
 
