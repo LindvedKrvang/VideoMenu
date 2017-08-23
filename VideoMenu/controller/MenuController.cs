@@ -9,16 +9,14 @@ namespace VideoMenuGUI.controller
     public class MenuController
     {
         private readonly MenuModel _menuModel;
-        //private readonly VideoModel _videoModel;
+        private readonly BllFacade _blllFacade;
 
         private bool _programIsRunning;
 
-        private readonly BllFacade _blllFacade;
 
         public MenuController()
         {
             _menuModel = new MenuModel();
-            //_videoModel = new VideoModel();
             _blllFacade = new BllFacade();
             _programIsRunning = true;
         }
@@ -127,7 +125,6 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("What do you want to search for?");
             var input = Console.ReadLine();
-            //var foundVideos = _videoModel.SearchVideos(input);
             var foundVideos = _blllFacade.VideoService.SearchVideos(input);
             if (foundVideos == null || foundVideos.Count == 0)
             {
@@ -169,7 +166,6 @@ namespace VideoMenuGUI.controller
         /// </summary>
         private void DisplayAllVideos()
         {
-            //var videos = _videoModel.Videos;
             var videos = _blllFacade.VideoService.GetVideos();
 
             if (!videos.Any())
@@ -188,7 +184,6 @@ namespace VideoMenuGUI.controller
         private void CreateVideo()
         {
             var name = PromptName();
-            //_videoModel.CreateVideo(name);
             _blllFacade.VideoService.CreateVideo(name);
         }
 
@@ -199,7 +194,6 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("Please enter the ID of the video to delete.");
             var idToRemove = PromptId();
-            //var video = _videoModel.DeleteVideo(idToRemove);
             var video = _blllFacade.VideoService.DeleteVideo(idToRemove);
             Console.WriteLine($"{video.Name} was deleted!");
 
@@ -221,7 +215,6 @@ namespace VideoMenuGUI.controller
         /// <returns></returns>
         private int PromptId()
         {
-            //var ids = _videoModel.GetIds();
             var ids = _blllFacade.VideoService.GetVideos().Select(v => v.Id).ToList();
             int input;
             if (!int.TryParse(Console.ReadLine(), out input) || !ids.Exists(i => i == input))
