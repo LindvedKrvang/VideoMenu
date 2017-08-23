@@ -8,10 +8,30 @@ namespace VideoMenuDAL.Repositories
     {
         private static List<Video> _videos = new List<Video>()
         {
-            new Video(1, "The good. The bad. The Ugly.", EGenre.Western),
-            new Video(2, "Scary Movie 4", EGenre.Comedy),
-            new Video(3, "The NoteBook", EGenre.Romantic),
-            new Video(4, "Skyfall", EGenre.Action)
+            new Video()
+            {
+                Id = 1,
+                Name = "The good. The bad. The Ugly",
+                Genre = EGenre.Western
+            },
+            new Video()
+            {
+                Id = 2,
+                Name = "Scary Movie 4",
+                Genre = EGenre.Comedy
+            },
+            new Video()
+            {
+                Id = 3,
+                Name = "The NoteBook",
+                Genre = EGenre.Romantic
+            },
+            new Video()
+            {
+                Id = 4,
+                Name = "Skyfall",
+                Genre = EGenre.Action
+            }
         };
 
         private int _idCounter = 5;
@@ -39,7 +59,12 @@ namespace VideoMenuDAL.Repositories
         /// <param name="name"></param>
         public Video CreateVideo(string name)
         {
-            var video = new Video(_idCounter++, name, EGenre.Undefined);
+            var video = new Video()
+            {
+                Id = _idCounter++,
+                Name = name,
+                Genre = EGenre.Undefined
+            };
             _videos.Add(video);
             return video;
         }

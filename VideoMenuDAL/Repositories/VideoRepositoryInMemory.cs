@@ -33,7 +33,12 @@ namespace VideoMenuDAL.Repositories
 
         public Video CreateVideo(string name)
         {
-            var video = new Video(_id++, name, EGenre.Undefined);
+            var video = new Video()
+            {
+                Id = _id++,
+                Name = name,
+                Genre = EGenre.Undefined
+            };
             _context.Videos.Add(video);
             _context.SaveChanges();
             return video;
