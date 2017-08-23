@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using VideoMenuBLL;
 using VideoMenuGUI.model;
 
 namespace VideoMenuGUI.controller
@@ -8,14 +9,15 @@ namespace VideoMenuGUI.controller
     public class MenuController
     {
         private readonly MenuModel _menuModel;
-        private readonly VideoModel _videoModel;
+        private readonly BllFacade _blllFacade;
 
         private bool _programIsRunning;
+
 
         public MenuController()
         {
             _menuModel = new MenuModel();
-            _videoModel = new VideoModel();
+            _blllFacade = new BllFacade();
             _programIsRunning = true;
         }
 
@@ -123,7 +125,7 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("What do you want to search for?");
             var input = Console.ReadLine();
-            var foundVideos = _videoModel.SearchVideos(input);
+            var foundVideos = _blllFacade.VideoService.SearchVideos(input);
             if (foundVideos == null || foundVideos.Count == 0)
             {
                 Console.WriteLine("No videos were found..");
@@ -138,15 +140,16 @@ namespace VideoMenuGUI.controller
         /// </summary>
         private void UpdateVideo()
         {
-            Console.WriteLine("Please enter the ID of the video to update:");
-            var id = PromptId();
-            var video = _videoModel.GetVideo(id);
-            Console.WriteLine($"The video you have selected is: {video.Name}.");
-            Console.WriteLine("Please enter its new name:");
-            var name = Console.ReadLine();
-            video.Name = name;
-            _videoModel.UpdateAllVideos();
-            Console.WriteLine($"The video is now called: {video.Name}.");
+            Console.WriteLine("Feature not implemented yet...");
+            //Console.WriteLine("Please enter the ID of the video to update:");
+            //var id = PromptId();
+            //var video = _videoModel.GetVideo(id);
+            //Console.WriteLine($"The video you have selected is: {video.Name}.");
+            //Console.WriteLine("Please enter its new name:");
+            //var name = Console.ReadLine();
+            //video.Name = name;
+            //_videoModel.UpdateAllVideos();
+            //Console.WriteLine($"The video is now called: {video.Name}.");
         }
 
         /// <summary>
@@ -163,7 +166,7 @@ namespace VideoMenuGUI.controller
         /// </summary>
         private void DisplayAllVideos()
         {
-            var videos = _videoModel.Videos;
+            var videos = _blllFacade.VideoService.GetVideos();
 
             if (!videos.Any())
             {
@@ -181,7 +184,7 @@ namespace VideoMenuGUI.controller
         private void CreateVideo()
         {
             var name = PromptName();
-            _videoModel.CreateVideo(name);
+            _blllFacade.VideoService.CreateVideo(name);
         }
 
         /// <summary>
@@ -191,7 +194,7 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("Please enter the ID of the video to delete.");
             var idToRemove = PromptId();
-            var video = _videoModel.DeleteVideo(idToRemove);
+            var video = _blllFacade.VideoService.DeleteVideo(idToRemove);
             Console.WriteLine($"{video.Name} was deleted!");
 
         }
@@ -212,7 +215,7 @@ namespace VideoMenuGUI.controller
         /// <returns></returns>
         private int PromptId()
         {
-            var ids = _videoModel.GetIds();
+            var ids = _blllFacade.VideoService.GetVideos().Select(v => v.Id).ToList();
             int input;
             if (!int.TryParse(Console.ReadLine(), out input) || !ids.Exists(i => i == input))
             {
