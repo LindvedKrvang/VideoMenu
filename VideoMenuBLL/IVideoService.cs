@@ -5,11 +5,18 @@ namespace VideoMenuBLL
 {
     public interface IVideoService
     {
+        //C
+        Video CreateVideo(string nameOfVideo);
+        
+        //R
         List<Video> GetVideos();
         Video GetVideo(int id);
-        Video CreateVideo(string nameOfVideo);
-        Video DeleteVideo(int idOfVideo);
-        void UpdateVideo(Video video);
         List<Video> SearchVideos(string searchQuery);
+
+        //U
+        void UpdateVideo(Video video);
+
+        //D
+        Video DeleteVideo(int idOfVideo);
     }
 }

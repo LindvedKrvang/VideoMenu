@@ -18,16 +18,30 @@ namespace VideoMenuDAL.Repositories
             _context = context;
         }
 
+        /// <summary>
+        /// Returns all videos in ht memoryDb.
+        /// </summary>
+        /// <returns></returns>
         public List<Video> GetVidoes()
         {
             return _context.Videos.ToList();
         }
 
+        /// <summary>
+        /// Gets the first video with the parsed id. Returns null if none is found.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Video GetVideo(int id)
         {
             return _context.Videos.FirstOrDefault(v => v.Id == id);
         }
 
+        /// <summary>
+        /// Deletes the video with the parse id in the memoryDb.
+        /// </summary>
+        /// <param name="idToRemove"></param>
+        /// <returns></returns>
         public Video DeleteVideo(int idToRemove)
         {
             var videoToDelete = _context.Videos.FirstOrDefault(v => v.Id == idToRemove);
@@ -35,6 +49,11 @@ namespace VideoMenuDAL.Repositories
             return videoToDelete;
         }
 
+        /// <summary>
+        /// Creates a video in the memoryDb.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public Video CreateVideo(string name)
         {
             var video = new Video()
@@ -47,6 +66,11 @@ namespace VideoMenuDAL.Repositories
             return video;
         }
 
+        /// <summary>
+        /// Search all videos if they contain the given searchQuery and returns any that match.
+        /// </summary>
+        /// <param name="searchQuery"></param>
+        /// <returns></returns>
         public List<Video> SearchVideos(string searchQuery)
         {
             int.TryParse(searchQuery, out int id);

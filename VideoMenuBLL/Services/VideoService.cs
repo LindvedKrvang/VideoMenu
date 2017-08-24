@@ -68,6 +68,10 @@ namespace VideoMenuBLL.Services
             }
         }
 
+        /// <summary>
+        /// Finds the video witch mathces with the id of the parsed video. Then updates the video.
+        /// </summary>
+        /// <param name="video"></param>
         public void UpdateVideo(Video video)
         {
             using (var uow = _facade.UnitOfWork)

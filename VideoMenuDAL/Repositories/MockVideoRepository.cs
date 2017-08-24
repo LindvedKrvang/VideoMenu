@@ -36,14 +36,23 @@ namespace VideoMenuDAL.Repositories
 
         private int _idCounter = 5;
         
+        /// <summary>
+        /// Returns all videos.
+        /// </summary>
+        /// <returns></returns>
         public List<Video> GetVidoes()
         {
             return _videos;
         }
 
+        /// <summary>
+        /// Returns the first instance that have the parsed id. Returns null if none is found.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Video GetVideo(int id)
         {
-            throw new System.NotImplementedException();
+            return _videos.FirstOrDefault(v => v.Id == id);
         }
 
         /// <summary>
@@ -72,15 +81,6 @@ namespace VideoMenuDAL.Repositories
             };
             _videos.Add(video);
             return video;
-        }
-
-        /// <summary>
-        /// Updates all the video.
-        /// </summary>
-        /// <param name="videos"></param>
-        public void UpdateAll(List<Video> videos)
-        {
-            _videos = videos;
         }
 
         /// <summary>
