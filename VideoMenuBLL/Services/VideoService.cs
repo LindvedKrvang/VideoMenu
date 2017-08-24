@@ -5,11 +5,11 @@ using VideoMenuEntities;
 
 namespace VideoMenuBLL.Services
 {
-    internal class VideoService : IService<Video>
+    public class VideoService : IService<Video>
     {
-        private readonly DalFacade _facade;
+        private readonly IDalFacade _facade;
 
-        public VideoService(DalFacade facade)
+        public VideoService(IDalFacade facade)
         {
             _facade = facade;
         }
