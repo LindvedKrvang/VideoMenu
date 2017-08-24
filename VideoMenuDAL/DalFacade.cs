@@ -7,10 +7,8 @@ using VideoMenuDAL.UnitOfWork;
 
 namespace VideoMenuDAL
 {
-    public class DalFacade
+    public class DalFacade : IDalFacade
     {
-        //public IVideoRepository VideoRepository => new MockVideoRepository();
-        //public IVideoRepository VideoRepository => new VideoRepositoryInMemory(new InMemoryContext());
-        public IUnitOfWork UnitOfWork => new UnitOfWorkMemory();
+        public IUnitOfWork UnitOfWork => new UnitOfWorkMemory(new InMemoryContext());
     }
 }

@@ -12,9 +12,9 @@ namespace VideoMenuDAL.UnitOfWork
 
         private readonly InMemoryContext _context;
 
-        public UnitOfWorkMemory()
+        public UnitOfWorkMemory(InMemoryContext context)
         {
-            _context = new InMemoryContext();
+            _context = context;
             VideoRepository = new VideoRepositoryInMemory(_context);
         }
 

@@ -1,11 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VideoMenuDAL.Context;
 using VideoMenuEntities;
 
 namespace VideoMenuDAL.Repositories
 {
     internal class MockVideoRepository : IVideoRepository
     {
+        private readonly MockContext _context;
+
+        public MockVideoRepository(MockContext context)
+        {
+            _context = context;
+        }
+
         private static List<Video> _videos = new List<Video>()
         {
             new Video()
@@ -42,7 +50,7 @@ namespace VideoMenuDAL.Repositories
         /// <returns></returns>
         public List<Video> GetVidoes()
         {
-            return _videos;
+            return _context.Videos;
         }
 
         /// <summary>
@@ -52,7 +60,7 @@ namespace VideoMenuDAL.Repositories
         /// <returns></returns>
         public Video GetVideo(int id)
         {
-            return _videos.FirstOrDefault(v => v.Id == id);
+            return _context.Videos.FirstOrDefault(v => v.Id == id);
         }
 
         /// <summary>
@@ -62,8 +70,8 @@ namespace VideoMenuDAL.Repositories
         /// <returns></returns>
         public Video DeleteVideo(int idToRemove)
         {
-            var videoToDelete = _videos.Find(v => v.Id == idToRemove);
-            _videos.Remove(videoToDelete);
+            var videoToDelete = _context.Videos.Find(v => v.Id == idToRemove);
+            _context.Videos.Remove(videoToDelete);
             return videoToDelete;
         }
 
@@ -79,7 +87,7 @@ namespace VideoMenuDAL.Repositories
                 Name = name,
                 Genre = EGenre.Undefined
             };
-            _videos.Add(video);
+            _context.Videos.Add(video);
             return video;
         }
 
@@ -91,7 +99,7 @@ namespace VideoMenuDAL.Repositories
         public List<Video> SearchVideos(string searchQuery)
         {
             int.TryParse(searchQuery, out int id);
-            return _videos.Where(v => 
+            return _context.Videos.Where(v => 
                 v.Name.ToLower().Contains(searchQuery.ToLower()) 
                 || v.Id == id 
                 || v.Genre.ToString().ToLower().Contains(searchQuery.ToLower()))

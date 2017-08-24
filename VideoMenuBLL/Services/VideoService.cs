@@ -7,7 +7,7 @@ namespace VideoMenuBLL.Services
 {
     internal class VideoService : IService<Video>
     {
-        private DalFacade _facade;
+        private readonly DalFacade _facade;
 
         public VideoService(DalFacade facade)
         {
