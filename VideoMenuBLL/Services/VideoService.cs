@@ -27,6 +27,19 @@ namespace VideoMenuBLL.Services
         }
 
         /// <summary>
+        /// Gets the video that have the parsed id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Video GetVideo(int id)
+        {
+            using (var uow = _facade.UnitOfWork)
+            {
+                return uow.VideoRepository.GetVideo(id);
+            }
+        }
+
+        /// <summary>
         /// Creates a new video in the database with the given name.
         /// </summary>
         public Video CreateVideo(string nameOfVideo)
@@ -55,14 +68,16 @@ namespace VideoMenuBLL.Services
             }
         }
 
-        /// <summary>
-        /// Updates all the videos in the database.
-        /// </summary>
-        /// <param name="videos"></param>
-        public void UpdateAllVideos(List<Video> videos)
+        public void UpdateVideo(Video video)
         {
-            //_videoRepository.UpdateAll(videos);
+            using (var uow = _facade.UnitOfWork)
+            {
+                var videoToEdit = uow.VideoRepository.GetVideo(video.Id);
+                videoToEdit.Name = video.Name;
+                uow.Complete();
+            }
         }
+
 
         /// <summary>
         /// Search all videos from the database if their name contains the searchQuery.

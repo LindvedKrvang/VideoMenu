@@ -41,6 +41,11 @@ namespace VideoMenuDAL.Repositories
             return _videos;
         }
 
+        public Video GetVideo(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Deletes a the video with the parsed ID. Returns it.
         /// </summary>

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using VideoMenuBLL;
+using VideoMenuEntities;
 using VideoMenuGUI.model;
 
 namespace VideoMenuGUI.controller
@@ -140,16 +141,20 @@ namespace VideoMenuGUI.controller
         /// </summary>
         private void UpdateVideo()
         {
-            Console.WriteLine("Feature not implemented yet...");
-            //Console.WriteLine("Please enter the ID of the video to update:");
-            //var id = PromptId();
-            //var video = _videoModel.GetVideo(id);
-            //Console.WriteLine($"The video you have selected is: {video.Name}.");
-            //Console.WriteLine("Please enter its new name:");
-            //var name = Console.ReadLine();
-            //video.Name = name;
-            //_videoModel.UpdateAllVideos();
-            //Console.WriteLine($"The video is now called: {video.Name}.");
+            Console.WriteLine("Please enter the ID of the video to update:");
+            var id = PromptId();
+
+            var nameOfVideoToEdit = _blllFacade.VideoService.GetVideo(id).Name;
+            Console.WriteLine($"The video you have selected is: {nameOfVideoToEdit}.");
+
+            var videoToEdit = new Video(){Id = id};
+
+            Console.WriteLine("Please enter its new name:");
+            var name = Console.ReadLine();
+            videoToEdit.Name = name;
+
+            _blllFacade.VideoService.UpdateVideo(videoToEdit);
+            Console.WriteLine($"The video is now called: {videoToEdit.Name}.");
         }
 
         /// <summary>

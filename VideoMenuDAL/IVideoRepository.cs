@@ -6,9 +6,9 @@ namespace VideoMenuDAL
     public interface IVideoRepository
     {
         List<Video> GetVidoes();
+        Video GetVideo(int id);
         Video DeleteVideo(int idToRemove);
         Video CreateVideo(string name);
-        void UpdateAll(List<Video> videos);
         List<Video> SearchVideos(string searchQuery);
     }
 }

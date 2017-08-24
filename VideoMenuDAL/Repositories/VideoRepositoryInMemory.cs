@@ -23,11 +23,15 @@ namespace VideoMenuDAL.Repositories
             return _context.Videos.ToList();
         }
 
+        public Video GetVideo(int id)
+        {
+            return _context.Videos.FirstOrDefault(v => v.Id == id);
+        }
+
         public Video DeleteVideo(int idToRemove)
         {
             var videoToDelete = _context.Videos.FirstOrDefault(v => v.Id == idToRemove);
             _context.Videos.Remove(videoToDelete);
-            _context.SaveChanges();
             return videoToDelete;
         }
 
@@ -40,13 +44,7 @@ namespace VideoMenuDAL.Repositories
                 Genre = EGenre.Undefined
             };
             _context.Videos.Add(video);
-            _context.SaveChanges();
             return video;
-        }
-
-        public void UpdateAll(List<Video> videos)
-        {
-            throw new NotImplementedException();
         }
 
         public List<Video> SearchVideos(string searchQuery)
