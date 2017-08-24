@@ -5,7 +5,7 @@ using VideoMenuEntities;
 
 namespace VideoMenuBLL.Services
 {
-    internal class VideoService : IVideoService
+    internal class VideoService : IService<Video>
     {
         private DalFacade _facade;
 

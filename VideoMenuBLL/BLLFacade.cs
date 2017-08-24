@@ -1,10 +1,11 @@
 ﻿using VideoMenuBLL.Services;
 using VideoMenuDAL;
+using VideoMenuEntities;
 
 namespace VideoMenuBLL
 {
     public class BllFacade
     {
-        public IVideoService VideoService => new VideoService(new DalFacade());
+        public IService<Video> Service => new VideoService(new DalFacade());
     }
 }

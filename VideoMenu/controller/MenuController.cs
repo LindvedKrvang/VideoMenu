@@ -126,7 +126,7 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("What do you want to search for?");
             var input = Console.ReadLine();
-            var foundVideos = _blllFacade.VideoService.SearchVideos(input);
+            var foundVideos = _blllFacade.Service.SearchVideos(input);
             if (foundVideos == null || foundVideos.Count == 0)
             {
                 Console.WriteLine("No videos were found..");
@@ -144,7 +144,7 @@ namespace VideoMenuGUI.controller
             Console.WriteLine("Please enter the ID of the video to update:");
             var id = PromptId();
 
-            var nameOfVideoToEdit = _blllFacade.VideoService.GetVideo(id).Name;
+            var nameOfVideoToEdit = _blllFacade.Service.GetVideo(id).Name;
             Console.WriteLine($"The video you have selected is: {nameOfVideoToEdit}.");
 
             var videoToEdit = new Video(){Id = id};
@@ -153,7 +153,7 @@ namespace VideoMenuGUI.controller
             var name = Console.ReadLine();
             videoToEdit.Name = name;
 
-            _blllFacade.VideoService.UpdateVideo(videoToEdit);
+            _blllFacade.Service.UpdateVideo(videoToEdit);
             Console.WriteLine($"The video is now called: {videoToEdit.Name}.");
         }
 
@@ -171,7 +171,7 @@ namespace VideoMenuGUI.controller
         /// </summary>
         private void DisplayAllVideos()
         {
-            var videos = _blllFacade.VideoService.GetVideos();
+            var videos = _blllFacade.Service.GetVideos();
 
             if (!videos.Any())
             {
@@ -189,7 +189,7 @@ namespace VideoMenuGUI.controller
         private void CreateVideo()
         {
             var name = PromptName();
-            _blllFacade.VideoService.CreateVideo(name);
+            _blllFacade.Service.CreateVideo(name);
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("Please enter the ID of the video to delete.");
             var idToRemove = PromptId();
-            var video = _blllFacade.VideoService.DeleteVideo(idToRemove);
+            var video = _blllFacade.Service.DeleteVideo(idToRemove);
             Console.WriteLine($"{video.Name} was deleted!");
 
         }
@@ -220,7 +220,7 @@ namespace VideoMenuGUI.controller
         /// <returns></returns>
         private int PromptId()
         {
-            var ids = _blllFacade.VideoService.GetVideos().Select(v => v.Id).ToList();
+            var ids = _blllFacade.Service.GetVideos().Select(v => v.Id).ToList();
             int input;
             if (!int.TryParse(Console.ReadLine(), out input) || !ids.Exists(i => i == input))
             {
