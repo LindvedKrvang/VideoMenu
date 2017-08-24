@@ -5,6 +5,6 @@ namespace VideoMenuBLL
 {
     public class BllFacade
     {
-        public IVideoService VideoService => new VideoService(new DalFacade().VideoRepository);
+        public IVideoService VideoService => new VideoService(new DalFacade());
     }
 }

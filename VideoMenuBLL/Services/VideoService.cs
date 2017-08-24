@@ -7,11 +7,11 @@ namespace VideoMenuBLL.Services
 {
     internal class VideoService : IVideoService
     {
-        private static IVideoRepository _videoRepository;
+        private DalFacade _facade;
 
-        public VideoService(IVideoRepository repository)
+        public VideoService(DalFacade facade)
         {
-            _videoRepository = repository;
+            _facade = facade;
         }
 
         /// <summary>
@@ -20,7 +20,10 @@ namespace VideoMenuBLL.Services
         /// <returns></returns>
         public List<Video> GetVideos()
         {
-            return _videoRepository.GetVidoes();
+            using (var uow = _facade.UnitOfWork)
+            {
+                return uow.VideoRepository.GetVidoes();
+            }
         }
 
         /// <summary>
@@ -28,7 +31,12 @@ namespace VideoMenuBLL.Services
         /// </summary>
         public Video CreateVideo(string nameOfVideo)
         {
-            return _videoRepository.CreateVideo(nameOfVideo);
+            using (var uow = _facade.UnitOfWork)
+            {
+                var createdVideo = uow.VideoRepository.CreateVideo(nameOfVideo);
+                uow.Complete();
+                return createdVideo;
+            }
         }
 
         /// <summary>
@@ -39,7 +47,12 @@ namespace VideoMenuBLL.Services
         /// <returns></returns>
         public Video DeleteVideo(int idOfVideo)
         {
-            return _videoRepository.DeleteVideo(idOfVideo);
+            using (var uow = _facade.UnitOfWork)
+            {
+                var deletedVideo = uow.VideoRepository.DeleteVideo(idOfVideo);
+                uow.Complete();
+                return deletedVideo;
+            }
         }
 
         /// <summary>
@@ -48,7 +61,7 @@ namespace VideoMenuBLL.Services
         /// <param name="videos"></param>
         public void UpdateAllVideos(List<Video> videos)
         {
-            _videoRepository.UpdateAll(videos);
+            //_videoRepository.UpdateAll(videos);
         }
 
         /// <summary>
@@ -58,7 +71,10 @@ namespace VideoMenuBLL.Services
         /// <returns></returns>
         public List<Video> SearchVideos(string searchQuery)
         {
-            return _videoRepository.SearchVideos(searchQuery);
+            using (var uow = _facade.UnitOfWork)
+            {
+                return uow.VideoRepository.SearchVideos(searchQuery);
+            }
         }
     }
 }
