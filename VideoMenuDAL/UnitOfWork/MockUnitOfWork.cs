@@ -14,8 +14,8 @@ namespace VideoMenuDAL.UnitOfWork
 
         public MockUnitOfWork()
         {
-            _mockContext = new MockContext();
-            VideoRepository = new MockVideoRepository(_mockContext);
+            //_mockContext = new MockContext();
+            VideoRepository = new MockVideoRepository();
         }
         public int Complete()
         {

@@ -7,50 +7,45 @@ namespace VideoMenuDAL.Repositories
 {
     internal class MockVideoRepository : IVideoRepository
     {
-        private readonly MockContext _context;
 
-        public MockVideoRepository(MockContext context)
-        {
-            _context = context;
-        }
 
-        private static List<Video> _videos = new List<Video>()
-        {
-            new Video()
-            {
-                Id = 1,
-                Name = "The good. The bad. The Ugly",
-                Genre = EGenre.Western
-            },
-            new Video()
-            {
-                Id = 2,
-                Name = "Scary Movie 4",
-                Genre = EGenre.Comedy
-            },
-            new Video()
-            {
-                Id = 3,
-                Name = "The NoteBook",
-                Genre = EGenre.Romantic
-            },
-            new Video()
-            {
-                Id = 4,
-                Name = "Skyfall",
-                Genre = EGenre.Action
-            }
-        };
+        //private static List<Video> _videos = new List<Video>()
+        //{
+        //    new Video()
+        //    {
+        //        Id = 1,
+        //        Name = "The good. The bad. The Ugly",
+        //        Genre = EGenre.Western
+        //    },
+        //    new Video()
+        //    {
+        //        Id = 2,
+        //        Name = "Scary Movie 4",
+        //        Genre = EGenre.Comedy
+        //    },
+        //    new Video()
+        //    {
+        //        Id = 3,
+        //        Name = "The NoteBook",
+        //        Genre = EGenre.Romantic
+        //    },
+        //    new Video()
+        //    {
+        //        Id = 4,
+        //        Name = "Skyfall",
+        //        Genre = EGenre.Action
+        //    }
+        //};
 
         private int _idCounter = 5;
-        
+
         /// <summary>
         /// Returns all videos.
         /// </summary>
         /// <returns></returns>
         public List<Video> GetVidoes()
         {
-            return _context.Videos;
+            return MockContext.Videos;
         }
 
         /// <summary>
@@ -60,7 +55,7 @@ namespace VideoMenuDAL.Repositories
         /// <returns></returns>
         public Video GetVideo(int id)
         {
-            return _context.Videos.FirstOrDefault(v => v.Id == id);
+            return MockContext.Videos.FirstOrDefault(v => v.Id == id);
         }
 
         /// <summary>
@@ -70,8 +65,8 @@ namespace VideoMenuDAL.Repositories
         /// <returns></returns>
         public Video DeleteVideo(int idToRemove)
         {
-            var videoToDelete = _context.Videos.Find(v => v.Id == idToRemove);
-            _context.Videos.Remove(videoToDelete);
+            var videoToDelete = MockContext.Videos.Find(v => v.Id == idToRemove);
+            MockContext.Videos.Remove(videoToDelete);
             return videoToDelete;
         }
 
@@ -87,7 +82,7 @@ namespace VideoMenuDAL.Repositories
                 Name = name,
                 Genre = EGenre.Undefined
             };
-            _context.Videos.Add(video);
+            MockContext.Videos.Add(video);
             return video;
         }
 
@@ -99,10 +94,10 @@ namespace VideoMenuDAL.Repositories
         public List<Video> SearchVideos(string searchQuery)
         {
             int.TryParse(searchQuery, out int id);
-            return _context.Videos.Where(v => 
-                v.Name.ToLower().Contains(searchQuery.ToLower()) 
-                || v.Id == id 
-                || v.Genre.ToString().ToLower().Contains(searchQuery.ToLower()))
+            return MockContext.Videos.Where(v =>
+                    v.Name.ToLower().Contains(searchQuery.ToLower())
+                    || v.Id == id
+                    || v.Genre.ToString().ToLower().Contains(searchQuery.ToLower()))
                 .ToList();
         }
     }

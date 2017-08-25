@@ -8,7 +8,7 @@ namespace VideoMenuDAL.Context
 {
     internal class MockContext
     {
-        public readonly List<Video> Videos = new List<Video>()
+        public static readonly List<Video> Videos = new List<Video>()
         {
             new Video()
             {
@@ -23,12 +23,14 @@ namespace VideoMenuDAL.Context
                 Name = "The Good. The Bad. The Ugly.",
                 Genre = EGenre.Western
             },
+
             new Video()
             {
                 Id = 3,
                 Name = "The NoteBook",
                 Genre = EGenre.Romantic
             },
+
             new Video()
             {
                 Id = 4,
