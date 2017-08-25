@@ -50,6 +50,17 @@ namespace VideoMenuDAL.Repositories
         }
 
         /// <summary>
+        /// Clears the Db of all contents.
+        /// </summary>
+        public void ClearAll()
+        {
+            foreach (var video in _context.Videos)
+            {
+                _context.Videos.Remove(video);
+            }
+        }
+
+        /// <summary>
         /// Creates a video in the memoryDb.
         /// </summary>
         /// <param name="name"></param>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VideoMenuDAL;
 using VideoMenuEntities;
@@ -65,6 +66,18 @@ namespace VideoMenuBLL.Services
                 var deletedVideo = uow.VideoRepository.DeleteVideo(idOfVideo);
                 uow.Complete();
                 return deletedVideo;
+            }
+        }
+
+        /// <summary>
+        /// Clears the Db of everything.
+        /// </summary>
+        public void ClearAll()
+        {
+            using (var uow = _facade.UnitOfWork)
+            {
+                uow.VideoRepository.ClearAll();
+                uow.Complete();
             }
         }
 
