@@ -18,5 +18,7 @@ namespace VideoMenuBLL
 
         //D
         TEntity DeleteVideo(int idOfVideo);
+
+        void ClearAll();
     }
 }

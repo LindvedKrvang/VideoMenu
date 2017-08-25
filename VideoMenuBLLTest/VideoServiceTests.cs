@@ -13,9 +13,9 @@ namespace VideoMenuBLLTest
 
         public VideoServiceTests()
         {
-            IDalFacade mockDal = new MockDalFacade();
-            _videoService = new VideoService(mockDal);
-            
+            IDalFacade dal = new DalFacade();
+            _videoService = new VideoService(dal);
+            _videoService.ClearAll();
         }
 
         private static readonly Video TestVideo = new Video()
@@ -26,25 +26,27 @@ namespace VideoMenuBLLTest
         };
 
         [Fact]
-        public void GetVideoTest()
+        public void VideoService_GetVideo_NotNull()
         {
-            var video = _videoService.GetVideo(1);
+            var videoCreated = _videoService.CreateVideo(TestVideo.Name);
+            var video = _videoService.GetVideo(videoCreated.Id);
 
             Assert.NotNull(video);
         }
 
         [Fact]
-        private void GetAllVideosTest()
+        private void VideoService_GetAllVideos_Equal()
         {
-            var testService = new VideoService(new MockDalFacade());
-            var result = testService.GetVideos().Count;
-            var expectedResult = 4;
+            _videoService.CreateVideo(TestVideo.Name);
+            _videoService.CreateVideo(TestVideo.Name);
+            var result = _videoService.GetVideos().Count;
+            var expectedResult = 2;
 
             Assert.Equal(expectedResult, result);
         }
 
         [Fact]
-        private void CreateVideoTest()
+        private void VideoService_CreateVideo_Contains()
         {
             var videoCreated = _videoService.CreateVideo(TestVideo.Name);
             var videos = _videoService.GetVideos();

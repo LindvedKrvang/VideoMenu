@@ -15,5 +15,7 @@ namespace VideoMenuDAL
 
         //D
         Video DeleteVideo(int idToRemove);
+
+        void ClearAll();
     }
 }
