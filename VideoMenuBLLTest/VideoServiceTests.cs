@@ -57,7 +57,12 @@ namespace VideoMenuBLLTest
         [Fact]
         private void DeleteVideoTest()
         {
+            var video1 = _videoService.CreateVideo(TestVideo.Name + "1");
+            var video2 = _videoService.CreateVideo(TestVideo.Name + "2");
 
+            _videoService.DeleteVideo(video2.Id);
+
+            Assert.DoesNotContain(video2, _videoService.GetVideos());
         }
     }
 }
