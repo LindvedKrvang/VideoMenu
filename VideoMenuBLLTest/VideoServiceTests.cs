@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using VideoMenuBLL;
 using VideoMenuBLL.Services;
 using VideoMenuDAL;
@@ -55,7 +56,7 @@ namespace VideoMenuBLLTest
         }
 
         [Fact]
-        private void DeleteVideoTest()
+        private void VideoService_DeleteVideo_DoesNotContain()
         {
             var video1 = _videoService.Create(TestVideo.Name + "1");
             var video2 = _videoService.Create(TestVideo.Name + "2");
@@ -63,6 +64,19 @@ namespace VideoMenuBLLTest
             _videoService.Delete(video2.Id);
 
             Assert.DoesNotContain(video2, _videoService.GetAll());
+        }
+
+        [Fact]
+        private void VideoService_CreateAll_Contains()
+        {
+            var names = new List<string>(){"Test1", "Test2", "Test3"};
+            var createdVideos = _videoService.CreateAll(names);
+
+            var videosFromDb = _videoService.GetAll();
+
+            Assert.Contains(createdVideos[0], videosFromDb);
+            Assert.Contains(createdVideos[1], videosFromDb);
+            Assert.Contains(createdVideos[2], videosFromDb);
         }
     }
 }
