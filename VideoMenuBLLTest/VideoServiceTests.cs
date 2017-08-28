@@ -28,8 +28,8 @@ namespace VideoMenuBLLTest
         [Fact]
         public void VideoService_GetVideo_NotNull()
         {
-            var videoCreated = _videoService.CreateVideo(TestVideo.Name);
-            var video = _videoService.GetVideo(videoCreated.Id);
+            var videoCreated = _videoService.Create(TestVideo.Name);
+            var video = _videoService.GetOne(videoCreated.Id);
 
             Assert.NotNull(video);
         }
@@ -37,9 +37,9 @@ namespace VideoMenuBLLTest
         [Fact]
         private void VideoService_GetAllVideos_Equal()
         {
-            _videoService.CreateVideo(TestVideo.Name);
-            _videoService.CreateVideo(TestVideo.Name);
-            var result = _videoService.GetVideos().Count;
+            _videoService.Create(TestVideo.Name);
+            _videoService.Create(TestVideo.Name);
+            var result = _videoService.GetAll().Count;
             var expectedResult = 2;
 
             Assert.Equal(expectedResult, result);
@@ -48,8 +48,8 @@ namespace VideoMenuBLLTest
         [Fact]
         private void VideoService_CreateVideo_Contains()
         {
-            var videoCreated = _videoService.CreateVideo(TestVideo.Name);
-            var videos = _videoService.GetVideos();
+            var videoCreated = _videoService.Create(TestVideo.Name);
+            var videos = _videoService.GetAll();
 
             Assert.Contains(videoCreated, videos);
         }
@@ -57,12 +57,12 @@ namespace VideoMenuBLLTest
         [Fact]
         private void DeleteVideoTest()
         {
-            var video1 = _videoService.CreateVideo(TestVideo.Name + "1");
-            var video2 = _videoService.CreateVideo(TestVideo.Name + "2");
+            var video1 = _videoService.Create(TestVideo.Name + "1");
+            var video2 = _videoService.Create(TestVideo.Name + "2");
 
-            _videoService.DeleteVideo(video2.Id);
+            _videoService.Delete(video2.Id);
 
-            Assert.DoesNotContain(video2, _videoService.GetVideos());
+            Assert.DoesNotContain(video2, _videoService.GetAll());
         }
     }
 }

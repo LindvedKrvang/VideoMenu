@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using VideoMenuBLL;
@@ -126,7 +127,7 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("What do you want to search for?");
             var input = Console.ReadLine();
-            var foundVideos = _blllFacade.Service.SearchVideos(input);
+            var foundVideos = _blllFacade.Service.Search(input);
             if (foundVideos == null || foundVideos.Count == 0)
             {
                 Console.WriteLine("No videos were found..");
@@ -144,16 +145,16 @@ namespace VideoMenuGUI.controller
             Console.WriteLine("Please enter the ID of the video to update:");
             var id = PromptId();
 
-            var nameOfVideoToEdit = _blllFacade.Service.GetVideo(id).Name;
+            var nameOfVideoToEdit = _blllFacade.Service.GetOne(id).Name;
             Console.WriteLine($"The video you have selected is: {nameOfVideoToEdit}.");
 
-            var videoToEdit = new Video(){Id = id};
+            var videoToEdit = new Video() {Id = id};
 
             Console.WriteLine("Please enter its new name:");
             var name = Console.ReadLine();
             videoToEdit.Name = name;
 
-            _blllFacade.Service.UpdateVideo(videoToEdit);
+            _blllFacade.Service.Update(videoToEdit);
             Console.WriteLine($"The video is now called: {videoToEdit.Name}.");
         }
 
@@ -171,7 +172,7 @@ namespace VideoMenuGUI.controller
         /// </summary>
         private void DisplayAllVideos()
         {
-            var videos = _blllFacade.Service.GetVideos();
+            var videos = _blllFacade.Service.GetAll();
 
             if (!videos.Any())
             {
@@ -184,12 +185,50 @@ namespace VideoMenuGUI.controller
         }
 
         /// <summary>
-        /// Creates a new video.
+        /// Creates a new video or videos depedng on the users preferences.
         /// </summary>
         private void CreateVideo()
         {
-            var name = PromptName();
-            _blllFacade.Service.CreateVideo(name);
+            var videosToBeCreated = new List<string>();
+            do
+            {
+                videosToBeCreated.Add(PromptName());
+            } while (CreateOneMoreVideo());
+            if (videosToBeCreated.Count == 0)
+                throw new InvalidOperationException("Can't save a video there isn't there!");
+            if (videosToBeCreated.Count > 1)
+            {
+                _blllFacade.Service.CreateAll(videosToBeCreated);
+            }
+            else
+            {
+                _blllFacade.Service.Create(videosToBeCreated[0]);
+            }
+        }
+
+        /// <summary>
+        /// Ask if the user wants to create one more video.
+        /// Returns true or false depending on the answer.
+        /// </summary>
+        /// <returns></returns>
+        private bool CreateOneMoreVideo()
+        {
+            while (true)
+            {
+                Console.WriteLine("Do you want to create another video? Yes or No");
+                var input = Console.ReadLine().ToLower();
+                if (input.Equals("yes") || input.Equals("y"))
+                {
+                    return true;
+                }
+
+                if (input.Equals("no") || input.Equals("n"))
+                {
+                    return false;
+                }
+
+                Console.WriteLine("That's not a valid command!");
+            }
         }
 
         /// <summary>
@@ -199,9 +238,8 @@ namespace VideoMenuGUI.controller
         {
             Console.WriteLine("Please enter the ID of the video to delete.");
             var idToRemove = PromptId();
-            var video = _blllFacade.Service.DeleteVideo(idToRemove);
+            var video = _blllFacade.Service.Delete(idToRemove);
             Console.WriteLine($"{video.Name} was deleted!");
-
         }
 
         /// <summary>
@@ -220,7 +258,7 @@ namespace VideoMenuGUI.controller
         /// <returns></returns>
         private int PromptId()
         {
-            var ids = _blllFacade.Service.GetVideos().Select(v => v.Id).ToList();
+            var ids = _blllFacade.Service.GetAll().Select(v => v.Id).ToList();
             int input;
             if (!int.TryParse(Console.ReadLine(), out input) || !ids.Exists(i => i == input))
             {

@@ -16,10 +16,26 @@ namespace VideoMenuBLL.Services
         }
 
         /// <summary>
+        /// Receives a list of names and creates videos of them in the database.
+        /// </summary>
+        /// <param name="nameOfVideos"></param>
+        /// <returns></returns>
+        public List<Video> CreateAll(List<string> nameOfVideos)
+        {
+            var videos = new List<Video>();
+            using (var uow = _facade.UnitOfWork)
+            {
+                videos.AddRange(nameOfVideos.Select(nameOfVideo => uow.VideoRepository.CreateVideo(nameOfVideo)));
+                uow.Complete();
+            }
+            return videos;
+        }
+
+        /// <summary>
         /// Gets the vidoes from the database and returns them.
         /// </summary>
         /// <returns></returns>
-        public List<Video> GetVideos()
+        public List<Video> GetAll()
         {
             using (var uow = _facade.UnitOfWork)
             {
@@ -32,7 +48,7 @@ namespace VideoMenuBLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Video GetVideo(int id)
+        public Video GetOne(int id)
         {
             using (var uow = _facade.UnitOfWork)
             {
@@ -43,11 +59,11 @@ namespace VideoMenuBLL.Services
         /// <summary>
         /// Creates a new video in the database with the given name.
         /// </summary>
-        public Video CreateVideo(string nameOfVideo)
+        public Video Create(string nameOfEntity)
         {
             using (var uow = _facade.UnitOfWork)
             {
-                var createdVideo = uow.VideoRepository.CreateVideo(nameOfVideo);
+                var createdVideo = uow.VideoRepository.CreateVideo(nameOfEntity);
                 uow.Complete();
                 return createdVideo;
             }
@@ -59,7 +75,7 @@ namespace VideoMenuBLL.Services
         /// <param></param>
         /// <param name="idOfVideo"></param>
         /// <returns></returns>
-        public Video DeleteVideo(int idOfVideo)
+        public Video Delete(int idOfVideo)
         {
             using (var uow = _facade.UnitOfWork)
             {
@@ -85,7 +101,7 @@ namespace VideoMenuBLL.Services
         /// Finds the video witch mathces with the id of the parsed video. Then updates the video.
         /// </summary>
         /// <param name="video"></param>
-        public void UpdateVideo(Video video)
+        public void Update(Video video)
         {
             using (var uow = _facade.UnitOfWork)
             {
@@ -101,7 +117,7 @@ namespace VideoMenuBLL.Services
         /// </summary>
         /// <param name="searchQuery"></param>
         /// <returns></returns>
-        public List<Video> SearchVideos(string searchQuery)
+        public List<Video> Search(string searchQuery)
         {
             using (var uow = _facade.UnitOfWork)
             {

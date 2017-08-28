@@ -6,18 +6,20 @@ namespace VideoMenuBLL
     public interface IService<TEntity>
     {
         //C
-        TEntity CreateVideo(string nameOfVideo);
+        TEntity Create(string nameOfEntity);
+
+        List<TEntity> CreateAll(List<string> nameOfEntities);
         
         //R
-        List<TEntity> GetVideos();
-        TEntity GetVideo(int id);
-        List<TEntity> SearchVideos(string searchQuery);
+        List<TEntity> GetAll();
+        TEntity GetOne(int id);
+        List<TEntity> Search(string searchQuery);
 
         //U
-        void UpdateVideo(TEntity video);
+        void Update(TEntity video);
 
         //D
-        TEntity DeleteVideo(int idOfVideo);
+        TEntity Delete(int idOfVideo);
 
         void ClearAll();
     }
