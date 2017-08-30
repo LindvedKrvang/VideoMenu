@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using VideoMenuBLL;
 using VideoMenuBLL.Services;
 using VideoMenuDAL;
-using VideoMenuEntities;
 using Xunit;
+using VideoMenuBLL.BusinessObjects;
 
 namespace VideoMenuBLLTest
 {
     public class VideoServiceTests
     {
-        private readonly IService<Video> _videoService;
+        private readonly IService<VideoBO> _videoService;
 
         public VideoServiceTests()
         {
@@ -19,11 +19,11 @@ namespace VideoMenuBLLTest
             _videoService.ClearAll();
         }
 
-        private static readonly Video TestVideo = new Video()
+        private static readonly VideoBO TestVideo = new VideoBO()
         {
             Id = 5,
             Name = "Test",
-            Genre = EGenre.Undefined
+            Genre = EGenreBO.Undefined
         };
 
         [Fact]
