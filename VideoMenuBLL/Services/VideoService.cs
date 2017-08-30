@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VideoMenuBLL.BusinessObjects;
+using VideoMenuBLL.Converters;
 using VideoMenuDAL;
-using VideoMenuEntities;
+using VideoMenuDAL.Entities;
 
 namespace VideoMenuBLL.Services
 {
-    public class VideoService : IService<Video>
+    public class VideoService : IService<VideoBO>
     {
+        private readonly VideoConverter _converter = new VideoConverter();
         private readonly IDalFacade _facade;
 
         public VideoService(IDalFacade facade)
@@ -20,7 +23,7 @@ namespace VideoMenuBLL.Services
         /// </summary>
         /// <param name="nameOfVideos"></param>
         /// <returns></returns>
-        public List<Video> CreateAll(List<string> nameOfVideos)
+        public List<VideoBO> CreateAll(List<string> nameOfVideos)
         {
             var videos = new List<Video>();
             using (var uow = _facade.UnitOfWork)
@@ -28,18 +31,18 @@ namespace VideoMenuBLL.Services
                 videos.AddRange(nameOfVideos.Select(nameOfVideo => uow.VideoRepository.CreateVideo(nameOfVideo)));
                 uow.Complete();
             }
-            return videos;
+            return videos.Select(_converter.Convert).ToList();
         }
 
         /// <summary>
         /// Gets the vidoes from the database and returns them.
         /// </summary>
         /// <returns></returns>
-        public List<Video> GetAll()
+        public List<VideoBO> GetAll()
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return uow.VideoRepository.GetVidoes();
+                return uow.VideoRepository.GetVidoes().Select(_converter.Convert).ToList();
             }
         }
 
@@ -48,24 +51,24 @@ namespace VideoMenuBLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Video GetOne(int id)
+        public VideoBO GetOne(int id)
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return uow.VideoRepository.GetVideo(id);
+                return _converter.Convert(uow.VideoRepository.GetVideo(id));
             }
         }
 
         /// <summary>
         /// Creates a new video in the database with the given name.
         /// </summary>
-        public Video Create(string nameOfEntity)
+        public VideoBO Create(string nameOfEntity)
         {
             using (var uow = _facade.UnitOfWork)
             {
                 var createdVideo = uow.VideoRepository.CreateVideo(nameOfEntity);
                 uow.Complete();
-                return createdVideo;
+                return _converter.Convert(createdVideo);
             }
         }
 
@@ -75,13 +78,13 @@ namespace VideoMenuBLL.Services
         /// <param></param>
         /// <param name="idOfVideo"></param>
         /// <returns></returns>
-        public Video Delete(int idOfVideo)
+        public VideoBO Delete(int idOfVideo)
         {
             using (var uow = _facade.UnitOfWork)
             {
                 var deletedVideo = uow.VideoRepository.DeleteVideo(idOfVideo);
                 uow.Complete();
-                return deletedVideo;
+                return _converter.Convert(deletedVideo);
             }
         }
 
@@ -101,7 +104,7 @@ namespace VideoMenuBLL.Services
         /// Finds the video witch mathces with the id of the parsed video. Then updates the video.
         /// </summary>
         /// <param name="video"></param>
-        public void Update(Video video)
+        public void Update(VideoBO video)
         {
             using (var uow = _facade.UnitOfWork)
             {
@@ -117,12 +120,14 @@ namespace VideoMenuBLL.Services
         /// </summary>
         /// <param name="searchQuery"></param>
         /// <returns></returns>
-        public List<Video> Search(string searchQuery)
+        public List<VideoBO> Search(string searchQuery)
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return uow.VideoRepository.SearchVideos(searchQuery);
+                return uow.VideoRepository.SearchVideos(searchQuery).Select(_converter.Convert).ToList();
             }
         }
+
+        
     }
 }

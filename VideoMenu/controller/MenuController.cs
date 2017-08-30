@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using VideoMenuBLL;
-using VideoMenuEntities;
+using VideoMenuBLL.BusinessObjects;
 using VideoMenuGUI.model;
 
 namespace VideoMenuGUI.controller
@@ -148,7 +148,7 @@ namespace VideoMenuGUI.controller
             var nameOfVideoToEdit = _blllFacade.Service.GetOne(id).Name;
             Console.WriteLine($"The video you have selected is: {nameOfVideoToEdit}.");
 
-            var videoToEdit = new Video() {Id = id};
+            var videoToEdit = new VideoBO() {Id = id};
 
             Console.WriteLine("Please enter its new name:");
             var name = Console.ReadLine();

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using VideoMenuEntities;
+using VideoMenuDAL.Entities;
 
 namespace VideoMenuDAL
 {

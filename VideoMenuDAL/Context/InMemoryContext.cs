@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using VideoMenuEntities;
+using VideoMenuDAL.Entities;
 
 namespace VideoMenuDAL.Context
 {
