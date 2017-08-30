@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VideoMenuBLL.BusinessObjects;
+using VideoMenuBLL.Converters;
 using VideoMenuDAL;
 using VideoMenuDAL.Entities;
 
@@ -9,6 +10,7 @@ namespace VideoMenuBLL.Services
 {
     public class VideoService : IService<VideoBO>
     {
+        private readonly VideoConverter _converter = new VideoConverter();
         private readonly IDalFacade _facade;
 
         public VideoService(IDalFacade facade)
@@ -29,7 +31,7 @@ namespace VideoMenuBLL.Services
                 videos.AddRange(nameOfVideos.Select(nameOfVideo => uow.VideoRepository.CreateVideo(nameOfVideo)));
                 uow.Complete();
             }
-            return videos.Select(Convert).ToList();
+            return videos.Select(_converter.Convert).ToList();
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace VideoMenuBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return uow.VideoRepository.GetVidoes().Select(Convert).ToList();
+                return uow.VideoRepository.GetVidoes().Select(_converter.Convert).ToList();
             }
         }
 
@@ -53,7 +55,7 @@ namespace VideoMenuBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return Convert(uow.VideoRepository.GetVideo(id));
+                return _converter.Convert(uow.VideoRepository.GetVideo(id));
             }
         }
 
@@ -66,7 +68,7 @@ namespace VideoMenuBLL.Services
             {
                 var createdVideo = uow.VideoRepository.CreateVideo(nameOfEntity);
                 uow.Complete();
-                return Convert(createdVideo);
+                return _converter.Convert(createdVideo);
             }
         }
 
@@ -82,7 +84,7 @@ namespace VideoMenuBLL.Services
             {
                 var deletedVideo = uow.VideoRepository.DeleteVideo(idOfVideo);
                 uow.Complete();
-                return Convert(deletedVideo);
+                return _converter.Convert(deletedVideo);
             }
         }
 
@@ -122,28 +124,10 @@ namespace VideoMenuBLL.Services
         {
             using (var uow = _facade.UnitOfWork)
             {
-                return uow.VideoRepository.SearchVideos(searchQuery).Select(Convert).ToList();
+                return uow.VideoRepository.SearchVideos(searchQuery).Select(_converter.Convert).ToList();
             }
         }
 
-        private VideoBO Convert(Video video)
-        {
-            return new VideoBO()
-            {
-                Genre = EGenreBO.Undefined,
-                Id = video.Id,
-                Name = video.Name
-            };
-        }
-
-        private Video Convert(VideoBO video)
-        {
-            return new Video()
-            {
-                Genre = EGenre.Undefined,
-                Id = video.Id,
-                Name = video.Name
-            };
-        }
+        
     }
 }
